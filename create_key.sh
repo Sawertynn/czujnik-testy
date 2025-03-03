@@ -1,2 +1,4 @@
 mkdir -p secrets
-openssl req -x509 -newkey rsa:4096 -keyout secrets/key.pem -out secrets/cert.pem -days 365 -nodes
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+-keyout secrets/key.pem -out secrets/cert.pem \
+-subj /C=PL/ST=mazowieckie/L=Warszawa/O=Organizacja/OU=Jednostka/CN=Nazwa

@@ -1,5 +1,7 @@
-from fastapi import FastAPI, Request
 from datetime import datetime
+import os
+
+from fastapi import FastAPI, Request
 import uvicorn
 
 SECRETS_DIR = "./secrets"
@@ -36,6 +38,8 @@ async def receive_data(request: Request):
 
 
 if __name__ == "__main__":
+    if not os.path.isfile(KEYFILE):
+        os.system("sh create_key.sh")
 
     uvicorn.run(
         app, host="0.0.0.0", port=PORT, ssl_keyfile=KEYFILE, ssl_certfile=CERTFILE
