@@ -8,7 +8,7 @@ CERTFILE = f"{SECRETS_DIR}/cert.pem"
 
 SAVE_FILE = "savefile.txt"
 
-PORT = 443
+PORT = 8000
 
 app = FastAPI()
 
