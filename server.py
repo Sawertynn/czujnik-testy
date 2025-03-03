@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from datetime import datetime
+import uvicorn
 
 SECRETS_DIR = "./secrets"
 KEYFILE = f"{SECRETS_DIR}/key.pem"
@@ -12,17 +13,17 @@ PORT = 443
 app = FastAPI()
 
 
-@app.get("/test")
-async def webpage(request: Request):
+@app.get("/")
+async def send_data(request: Request):
     try:
         with open(SAVE_FILE, "r") as file:
-            content = file.read()
+            content = file.readlines()
             return content
     except FileNotFoundError:
         return "nothing saved for now"
 
 
-@app.post("/test")
+@app.post("/")
 async def receive_data(request: Request):
     data = await request.body()
     timestamp = datetime.now().isoformat()
@@ -35,7 +36,6 @@ async def receive_data(request: Request):
 
 
 if __name__ == "__main__":
-    import uvicorn
 
     uvicorn.run(
         app, host="0.0.0.0", port=PORT, ssl_keyfile=KEYFILE, ssl_certfile=CERTFILE
