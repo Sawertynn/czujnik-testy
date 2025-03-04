@@ -9,6 +9,7 @@ CERTFILE = f"{SECRETS_DIR}/cert.pem"
 SAVE_FILE = "savefile.txt"
 
 PORT = 443
+HOST = "0.0.0.0"
 
 app = FastAPI()
 
@@ -18,9 +19,9 @@ async def send_data(request: Request):
     try:
         with open(SAVE_FILE, "r") as file:
             content = file.readlines()
-            return content
     except FileNotFoundError:
         return "nothing saved for now"
+    return content
 
 
 @app.post("/")
@@ -38,5 +39,5 @@ async def receive_data(request: Request):
 if __name__ == "__main__":
 
     uvicorn.run(
-        app, host="0.0.0.0", port=PORT, ssl_keyfile=KEYFILE, ssl_certfile=CERTFILE
+        app, host=HOST, port=PORT, ssl_keyfile=KEYFILE, ssl_certfile=CERTFILE
     )
