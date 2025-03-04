@@ -12,3 +12,4 @@ wheels/
 
 # Keys, secretes and confidential stuff
 secrets
+savefile.txt
